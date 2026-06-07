@@ -160,7 +160,7 @@ class ResendService(EmailService):
             
         try:
             resend.Emails.send({
-                "from": settings.SMTP_USERNAME, # Or a verified domain for Resend
+                "from": "dentalclinicissue@resend.dev", # Using the Resend testing domain
                 "to": recipient,
                 "subject": subject,
                 "text": text,
@@ -173,5 +173,5 @@ class ResendService(EmailService):
 
 # Factory or Dependency Injection function
 def get_email_service() -> EmailService:
-    # Use Gmail for now as per user request
-    return GmailSMTPService()
+    # Use Resend to bypass Render's port blocking
+    return ResendService()
