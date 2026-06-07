@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rules Admin - Dental Clinic</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <style>
+        .category-card {
+            background: rgba(15, 23, 42, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .category-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 1.5rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-bottom: 1px solid var(--border-color);
+        }
+        .category-header h4 {
+            margin: 0;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .rule-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .rule-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: var(--transition);
+        }
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+        .rule-item:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        .rule-text {
+            flex: 1;
+            padding-right: 1rem;
+        }
+        .add-rule-row {
+            padding: 1rem 1.5rem;
+            background: rgba(212, 175, 55, 0.05);
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <ion-icon name="shield-checkmark"></ion-icon> Admin Panel
+            </div>
+            <ul class="nav-links">
+                <li><a href="introduction.html"><ion-icon name="home-outline"></ion-icon> Introduction</a></li>
+                <li><a href="experience.html"><ion-icon name="medical-outline"></ion-icon> Doctor's Experience</a></li>
+                <li><a href="staff.html"><ion-icon name="people-outline"></ion-icon> Staff</a></li>
+                <li><a href="contact.html"><ion-icon name="call-outline"></ion-icon> Contact Us</a></li>
+                <li><a href="announcements.html"><ion-icon name="megaphone-outline"></ion-icon> Announcements</a></li>
+                <li><a href="rules.html" class="active"><ion-icon name="list-outline"></ion-icon> Rules & Regulations</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-wrapper">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="page-title">Rules & Regulations</div>
+                <div class="user-actions">
+                    <button class="btn-secondary" id="changePasswordBtn">
+                        <ion-icon name="key-outline"></ion-icon> Change Password
+                    </button>
+                    <button class="btn-danger" id="logoutBtn">
+                        <ion-icon name="log-out-outline"></ion-icon> Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-area">
+                
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <div>
+                            <h3><ion-icon name="list-outline"></ion-icon> Manage Rules</h3>
+                            <p style="color: var(--text-muted);">Organize rules by creating categories and adding specific guidelines to each.</p>
+                        </div>
+                        <button class="btn-primary" id="addCategoryBtn" style="width: auto; padding: 0.8rem 1.5rem;">
+                            <ion-icon name="folder-outline"></ion-icon> Add Category
+                        </button>
+                    </div>
+
+                    <div id="rulesContainer">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Category Modal -->
+    <div class="modal-overlay" id="catModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 id="catModalTitle">Add Category</h3>
+                <button class="close-modal" id="closeCatModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="catForm">
+                <input type="hidden" id="catId">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" id="catName" required maxlength="150" placeholder="e.g. General Safety">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Save Category
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Rule Item Modal -->
+    <div class="modal-overlay" id="ruleModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="ruleModalTitle">Add Rule</h3>
+                <button class="close-modal" id="closeRuleModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="ruleForm">
+                <input type="hidden" id="ruleId">
+                <input type="hidden" id="ruleCategoryId">
+                <div class="form-group">
+                    <label>Rule Description</label>
+                    <textarea id="ruleDescription" required maxlength="500" rows="3" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; border-radius: 8px; width: 100%;"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Save Rule
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-modal" id="closePasswordModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" required minlength="6">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth and logic -->
+    <script src="js/admin-auth.js"></script>
+    <script src="js/rules.js"></script>
+</body>
+</html>

@@ -1,0 +1,25 @@
+# Environments
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Environment Variables
+.env
+backend/.env
+frontend-user/.env
+
+# Build outputs
+frontend-user/js/env.js
+
+# OS files
+.DS_Store
+
+# Editor files
+.vscode/
+.idea/
+
+# Database files
+*.sqlite3

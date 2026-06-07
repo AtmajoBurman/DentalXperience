@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Clinic - Introduction</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Ionicons for beautiful icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="navbar" id="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html" class="active">Introduction</a></li>
+            <li><a href="experience.html">Doctor's Experience</a></li>
+            <li><a href="staff.html">Staff</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="announcements.html">Announcements</a></li>
+            <li><a href="rules.html">Rules and Regulations</a></li>
+        </ul>
+    </nav>
+
+    <!-- Top Register Button -->
+    <div class="top-actions">
+        <button class="btn-primary" id="registerBtn">Register with Us</button>
+    </div>
+
+    <!-- Floating Chatbot -->
+    <div class="chatbot-btn" id="chatbotBtn">
+        <ion-icon name="chatbubbles-outline" style="font-size: 24px; color: var(--accent-color);"></ion-icon>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <h1 id="chamber-name">Loading...</h1>
+            <a href="#" id="map-link" target="_blank" class="map-circle">
+                <video autoplay muted loop playsinline>
+                    <source src="assets/Media/MapsVideo.mp4" type="video/mp4">
+                </video>
+            </a>
+        </section>
+
+        <!-- Divine Card Section -->
+        <section class="divine-card-wrapper">
+            <div class="glass-card divine-card">
+                <div class="video-container">
+                    <video autoplay muted loop playsinline>
+                        <source src="assets/Media/DevoVid.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="message-container">
+                    <div class="bengali-text">খণ্ডন ভব বন্ধন জগ বন্দন বন্দি তোমায়</div>
+                    <div class="english-text">(We adore you, O breaker of the bondage of the world, worshipped by all
+                        humankind!)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="gallery-section">
+            <h2>Our Clinic</h2>
+            <div class="slideshow-container" id="slideshow">
+                <!-- Images will be injected here via JS -->
+            </div>
+        </section>
+        <!-- Schedule Section -->
+        <section class="schedule-section">
+            <h2>Chamber Timings*</h2>
+            <div class="glass-card">
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Day</th>
+                            <th>Opening Time</th>
+                            <th>Closing Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="schedule-body">
+                        <!-- Rows injected via JS -->
+                    </tbody>
+                </table>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); text-decoration: underline; margin-top: 15px;">
+                    *Standard timings. Kindly check Announcements for any date-specific changes.
+                </p>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Upcoming Announcements Popup -->
+    <div id="upcoming-popup" class="toast-popup">
+        <div class="toast-content">
+            <h4><ion-icon name="notifications-outline"></ion-icon> Upcoming Events!</h4>
+            <p>We have some upcoming announcements for the next few days. Please check the announcements section.</p>
+        </div>
+        <button id="dismissPopupBtn" class="toast-dismiss"><ion-icon name="close-outline"></ion-icon></button>
+    </div>
+
+    <script src="js/env.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>

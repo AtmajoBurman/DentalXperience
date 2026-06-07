@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Admin - Dental Clinic</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <ion-icon name="shield-checkmark"></ion-icon> Admin Panel
+            </div>
+            <ul class="nav-links">
+                <li><a href="introduction.html"><ion-icon name="home-outline"></ion-icon> Introduction</a></li>
+                <li><a href="experience.html"><ion-icon name="medical-outline"></ion-icon> Doctor's Experience</a></li>
+                <li><a href="staff.html" class="active"><ion-icon name="people-outline"></ion-icon> Staff</a></li>
+                <li><a href="contact.html"><ion-icon name="call-outline"></ion-icon> Contact Us</a></li>
+                <li><a href="announcements.html"><ion-icon name="megaphone-outline"></ion-icon> Announcements</a></li>
+                <li><a href="rules.html"><ion-icon name="list-outline"></ion-icon> Rules & Regulations</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-wrapper">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="page-title">Clinic Staff</div>
+                <div class="user-actions">
+                    <button class="btn-secondary" id="changePasswordBtn">
+                        <ion-icon name="key-outline"></ion-icon> Change Password
+                    </button>
+                    <button class="btn-danger" id="logoutBtn">
+                        <ion-icon name="log-out-outline"></ion-icon> Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-area">
+                
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <div>
+                            <h3><ion-icon name="people-outline"></ion-icon> Manage Clinic Staff</h3>
+                            <p style="color: var(--text-muted);">Add, edit, or remove staff members.</p>
+                        </div>
+                        <button class="btn-primary" id="addStaffBtn" style="width: auto; padding: 0.8rem 1.5rem;">
+                            <ion-icon name="person-add-outline"></ion-icon> Add New Staff
+                        </button>
+                    </div>
+
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"></th>
+                                    <th>Name</th>
+                                    <th>Contact</th>
+                                    <th>Tenure</th>
+                                    <th>Picture</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="staffTableBody">
+                                <!-- Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Staff Modal -->
+    <div class="modal-overlay" id="staffModal">
+        <div class="modal-content" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="staffModalTitle">Add Staff Member</h3>
+                <button class="close-modal" id="closeStaffModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="staffForm">
+                <input type="hidden" id="staffId">
+                
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="staffName" required maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number <span style="color:var(--text-muted); font-size:0.8rem;">(Format: +xy-abcdefghij)</span></label>
+                    <input type="text" id="staffPhone" placeholder="+91-8549762582" pattern="^\+\d{2}-\d{10}$" title="Must match format +xy-abcdefghij">
+                </div>
+
+                <div class="form-group" style="display: flex; gap: 1rem;">
+                    <div style="flex: 1;">
+                        <label>From Date</label>
+                        <input type="date" id="staffStart" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <label>Till Date (Leave blank for Present)</label>
+                        <input type="date" id="staffEnd">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Profile Picture (Google Drive URL)</label>
+                    <input type="url" id="staffPicture" required>
+                </div>
+                <div class="image-preview" id="staffPreviewContainer" style="display: none; text-align: center; margin-bottom: 1rem;">
+                    <img id="staffPreviewImg" src="" alt="Preview" style="max-height: 150px; border-radius: 8px; border: 2px solid var(--accent-color);">
+                </div>
+
+                <div class="form-group">
+                    <label>Description / Role</label>
+                    <textarea id="staffDescription" required maxlength="1000" rows="4" style="background: rgba(15, 23, 42, 0.6); border: 1px solid var(--border-color); color: var(--text-main); padding: 0.8rem; border-radius: 8px; width: 100%;"></textarea>
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Save Staff Member
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-modal" id="closePasswordModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" required minlength="6">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth and logic -->
+    <script src="js/admin-auth.js"></script>
+    <script src="js/staff.js"></script>
+</body>
+</html>

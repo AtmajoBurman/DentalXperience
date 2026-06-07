@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dental Clinic - Staff</title>
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Ionicons for beautiful icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+
+<body>
+
+    <!-- Toggle Button -->
+    <button class="nav-toggle" id="navToggle">
+        <ion-icon name="menu-outline"></ion-icon>
+    </button>
+
+    <!-- Sidebar Navigation -->
+    <nav class="navbar" id="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html">Introduction</a></li>
+            <li><a href="experience.html">Doctor's Experience</a></li>
+            <li><a href="staff.html" class="active">Staff</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="announcements.html">Announcements</a></li>
+            <li><a href="rules.html">Rules and Regulations</a></li>
+        </ul>
+    </nav>
+
+    <!-- Top Register Button -->
+    <div class="top-actions">
+        <button class="btn-primary" id="registerBtn">Register with Us</button>
+    </div>
+
+    <!-- Floating Chatbot -->
+    <div class="chatbot-btn" id="chatbotBtn">
+        <ion-icon name="chatbubbles-outline" style="font-size: 24px; color: var(--accent-color);"></ion-icon>
+    </div>
+
+    <!-- Main Content -->
+    <main id="mainContent">
+
+        <!-- Hero Section -->
+        <section class="hero staff-hero">
+            <h1 id="chamber-name">Meet Our Divine Team</h1>
+            <p class="staff-hero-sub">Dedicated professionals committed to your care.</p>
+        </section>
+
+        <!-- Current Staff Section -->
+        <section class="staff-section" id="current-staff-section" style="display: none;">
+            <h2 class="section-title">Current Staff</h2>
+            <div class="staff-grid" id="current-staff-grid">
+                <!-- Cards will be injected here -->
+            </div>
+        </section>
+
+        <!-- Alumni Staff Section -->
+        <section class="staff-section" id="alumni-staff-section" style="display: none;">
+            <h2 class="section-title">Our Alumni</h2>
+            <div class="staff-grid" id="alumni-staff-grid">
+                <!-- Cards will be injected here -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Base JS (for navbar toggle and generic utils) -->
+    <script src="js/env.js"></script>
+    <script src="js/main.js"></script>
+    <!-- Staff specific JS -->
+    <script src="js/staff.js"></script>
+</body>
+
+</html>

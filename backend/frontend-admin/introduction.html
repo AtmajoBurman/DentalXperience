@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Introduction Admin - Dental Clinic</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <ion-icon name="shield-checkmark"></ion-icon> Admin Panel
+            </div>
+            <ul class="nav-links">
+                <li><a href="introduction.html" class="active"><ion-icon name="home-outline"></ion-icon> Introduction</a></li>
+                <li><a href="experience.html"><ion-icon name="medical-outline"></ion-icon> Doctor's Experience</a></li>
+                <li><a href="staff.html"><ion-icon name="people-outline"></ion-icon> Staff</a></li>
+                <li><a href="contact.html"><ion-icon name="call-outline"></ion-icon> Contact Us</a></li>
+                <li><a href="announcements.html"><ion-icon name="megaphone-outline"></ion-icon> Announcements</a></li>
+                <li><a href="rules.html"><ion-icon name="list-outline"></ion-icon> Rules & Regulations</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-wrapper">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="page-title">Introduction settings</div>
+                <div class="user-actions">
+                    <button class="btn-secondary" id="changePasswordBtn">
+                        <ion-icon name="key-outline"></ion-icon> Change Password
+                    </button>
+                    <button class="btn-danger" id="logoutBtn">
+                        <ion-icon name="log-out-outline"></ion-icon> Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-area">
+                
+                <div class="admin-card">
+                    <h3><ion-icon name="business-outline"></ion-icon> Edit Profile Information</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        This controls the main Hero section on the user-facing Introduction page, as well as the Doctor Header on the Experience page.
+                    </p>
+
+                    <form id="introForm">
+                        <div class="form-group">
+                            <label for="chamberName">Chamber Name</label>
+                            <input type="text" id="chamberName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="doctorName">Doctor Name</label>
+                            <input type="text" id="doctorName" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profilePicture">Doctor Profile Picture (Google Drive URL)</label>
+                            <input type="url" id="profilePicture" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mapLink">Google Maps Location Link</label>
+                            <input type="url" id="mapLink" required>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="max-width: 200px; margin-top: 2rem;">
+                            <ion-icon name="save-outline"></ion-icon> Save Changes
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Clinic Schedule -->
+                <div class="admin-card">
+                    <h3><ion-icon name="time-outline"></ion-icon> Clinic Schedule</h3>
+                    <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                        Set the operational hours for each day of the week.
+                    </p>
+                    <div id="scheduleContainer" class="schedule-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Picture Gallery -->
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h3><ion-icon name="images-outline"></ion-icon> Picture Gallery</h3>
+                        <button class="btn-primary" id="addPictureBtn" style="width: auto; margin: 0; padding: 0.5rem 1rem;">
+                            <ion-icon name="add-outline"></ion-icon> Add Picture
+                        </button>
+                    </div>
+                    <div id="galleryContainer" class="gallery-grid">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+                <!-- Registered Customers -->
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <h3><ion-icon name="people-outline"></ion-icon> Registered Customers</h3>
+                    </div>
+                    <button class="btn-primary" id="viewCustomersBtn" style="max-width: 300px;">
+                        <ion-icon name="mail-unread-outline"></ion-icon> View Registered Emails
+                    </button>
+                    <div id="customersListContainer" style="display: none; margin-top: 1.5rem;">
+                        <h4 id="customersCount" style="margin-bottom: 1rem; color: var(--accent-color);">Total: 0</h4>
+                        <ul id="customersList" style="list-style-type: none; padding: 0; max-height: 300px; overflow-y: auto; background: var(--bg-color); padding: 1rem; border-radius: 8px;">
+                            <!-- Injected via JS -->
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-modal" id="closePasswordModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" required minlength="6">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Picture Modal -->
+    <div class="modal-overlay" id="pictureModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Picture</h3>
+                <button class="close-modal" id="closePictureModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="pictureForm">
+                <div class="form-group">
+                    <label>Google Drive URL</label>
+                    <input type="url" id="newPictureUrl" required>
+                </div>
+                <!-- Image Preview Area -->
+                <div class="image-preview" id="picturePreviewContainer" style="display: none; text-align: center; margin-bottom: 1.5rem;">
+                    <img id="picturePreviewImg" src="" alt="Preview" style="max-height: 200px; max-width: 100%; border-radius: 8px; border: 2px solid var(--accent-color);">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="cloud-upload-outline"></ion-icon> Upload Picture
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth and logic -->
+    <script src="js/admin-auth.js"></script>
+    <script src="js/introduction.js"></script>
+</body>
+</html>

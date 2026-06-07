@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Admin - Dental Clinic</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <ion-icon name="shield-checkmark"></ion-icon> Admin Panel
+            </div>
+            <ul class="nav-links">
+                <li><a href="introduction.html"><ion-icon name="home-outline"></ion-icon> Introduction</a></li>
+                <li><a href="experience.html"><ion-icon name="medical-outline"></ion-icon> Doctor's Experience</a></li>
+                <li><a href="staff.html"><ion-icon name="people-outline"></ion-icon> Staff</a></li>
+                <li><a href="contact.html" class="active"><ion-icon name="call-outline"></ion-icon> Contact Us</a></li>
+                <li><a href="announcements.html"><ion-icon name="megaphone-outline"></ion-icon> Announcements</a></li>
+                <li><a href="rules.html"><ion-icon name="list-outline"></ion-icon> Rules & Regulations</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-wrapper">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="page-title">Contact Us Management</div>
+                <div class="user-actions">
+                    <button class="btn-secondary" id="changePasswordBtn">
+                        <ion-icon name="key-outline"></ion-icon> Change Password
+                    </button>
+                    <button class="btn-danger" id="logoutBtn">
+                        <ion-icon name="log-out-outline"></ion-icon> Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-area">
+                
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                        <div>
+                            <h3><ion-icon name="call-outline"></ion-icon> Manage Contact Methods</h3>
+                            <p style="color: var(--text-muted);">Add, edit, or remove contact numbers for the clinic.</p>
+                        </div>
+                        <button class="btn-primary" id="addContactBtn" style="width: auto; padding: 0.8rem 1.5rem;">
+                            <ion-icon name="add-circle-outline"></ion-icon> Add New Contact
+                        </button>
+                    </div>
+
+                    <div class="data-table-wrapper">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40px;"></th>
+                                    <th>Name</th>
+                                    <th>Contact No</th>
+                                    <th>Profile Picture</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="contactTableBody">
+                                <!-- Injected via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Add/Edit Contact Modal -->
+    <div class="modal-overlay" id="contactModal">
+        <div class="modal-content" style="max-width: 500px;">
+            <div class="modal-header">
+                <h3 id="contactModalTitle">Add Contact</h3>
+                <button class="close-modal" id="closeContactModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="contactForm">
+                <input type="hidden" id="contactId">
+                
+                <div class="form-group">
+                    <label>Title / Name <span style="color:var(--text-muted); font-size:0.8rem;">(e.g., Emergency, Bookings)</span></label>
+                    <input type="text" id="contactName" required maxlength="100">
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Number <span style="color:var(--text-muted); font-size:0.8rem;">(Format: +xy-abcdefghij)</span></label>
+                    <input type="text" id="contactPhone" required placeholder="+91-8549762582" pattern="^\+\d{2}-\d{10}$" title="Must match format +xy-abcdefghij">
+                </div>
+
+                <div class="form-group">
+                    <label>Profile Picture (Google Drive URL)</label>
+                    <input type="url" id="contactPicture">
+                </div>
+                <div class="image-preview" id="contactPreviewContainer" style="display: none; text-align: center; margin-bottom: 1rem;">
+                    <img id="contactPreviewImg" src="" alt="Preview" style="max-height: 150px; border-radius: 8px; border: 2px solid var(--accent-color);">
+                </div>
+
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Save Contact
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Password Change Modal -->
+    <div class="modal-overlay" id="passwordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Change Password</h3>
+                <button class="close-modal" id="closePasswordModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="passwordForm">
+                <div class="form-group">
+                    <label>New Password</label>
+                    <input type="password" id="newPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" required minlength="6">
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Update Password
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Auth and logic -->
+    <script src="js/admin-auth.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

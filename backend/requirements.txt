@@ -1,0 +1,16 @@
+fastapi[standard]
+sqlmodel
+pydantic
+pydantic-settings
+asyncpg
+greenlet
+python-dotenv
+tzdata
+apscheduler
+PyJWT
+passlib
+bcrypt==3.2.2
+python-multipart
+resend
+langchain-huggingface
+langchain-core

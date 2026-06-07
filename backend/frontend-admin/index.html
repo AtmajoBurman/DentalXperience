@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Dental Clinic</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <!-- Ionicons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</head>
+<body class="login-body">
+
+    <div class="login-container">
+        <div class="login-header">
+            <ion-icon name="shield-checkmark-outline"></ion-icon>
+            <h2>Admin Portal</h2>
+            <p>Secure Access Only</p>
+        </div>
+
+        <form id="loginForm" class="login-form">
+            <div class="form-group">
+                <label for="username"><ion-icon name="person-outline"></ion-icon> Username</label>
+                <input type="text" id="username" name="username" required placeholder="Enter admin username">
+            </div>
+            
+            <div class="form-group">
+                <label for="password"><ion-icon name="lock-closed-outline"></ion-icon> Password</label>
+                <input type="password" id="password" name="password" required placeholder="Enter password">
+            </div>
+
+            <div id="loginError" class="error-msg" style="display: none;">Invalid credentials!</div>
+
+            <button type="submit" class="btn-primary" id="loginBtn">
+                Login <ion-icon name="log-in-outline"></ion-icon>
+            </button>
+        </form>
+    </div>
+
+    <!-- Auth script logic specifically for login -->
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const btn = document.getElementById('loginBtn');
+            const errorDiv = document.getElementById('loginError');
+            
+            btn.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon> Authenticating...';
+            errorDiv.style.display = 'none';
+
+            const formData = new URLSearchParams();
+            formData.append('username', document.getElementById('username').value);
+            formData.append('password', document.getElementById('password').value);
+
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: formData
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('adminToken', data.access_token);
+                    window.location.href = 'introduction.html';
+                } else {
+                    errorDiv.style.display = 'block';
+                    btn.innerHTML = 'Login <ion-icon name="log-in-outline"></ion-icon>';
+                }
+            } catch (err) {
+                console.error(err);
+                errorDiv.textContent = "Server Error. Is the backend running?";
+                errorDiv.style.display = 'block';
+                btn.innerHTML = 'Login <ion-icon name="log-in-outline"></ion-icon>';
+            }
+        });
+
+        // Redirect if already logged in
+        if (localStorage.getItem('adminToken')) {
+            window.location.href = 'introduction.html';
+        }
+    </script>
+</body>
+</html>
