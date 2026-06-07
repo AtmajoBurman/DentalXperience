@@ -58,8 +58,13 @@ async def request_otp(request: RegisterRequest, background_tasks: BackgroundTask
     subject = "Your Registration OTP"
     text = f"Your OTP for registration is: {otp}\nIt is valid for 5 minutes."
     
-    # Run email sending in the background so the endpoint returns immediately
-    background_tasks.add_task(email_service.send, request.email, subject, text)
+    # Run email sending synchronously to check for errors
+    email_sent = email_service.send(request.email, subject, text)
+    if not email_sent:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"message": "Failed to send OTP email."}
+        )
     
     return JSONResponse(
         status_code=status.HTTP_200_OK,
@@ -136,7 +141,12 @@ async def request_unregister_otp(request: RegisterRequest, background_tasks: Bac
     email_service = get_email_service()
     subject = "Your Unregister OTP"
     text = f"Your OTP to unregister is: {otp}\nIt is valid for 5 minutes."
-    background_tasks.add_task(email_service.send, request.email, subject, text)
+    email_sent = email_service.send(request.email, subject, text)
+    if not email_sent:
+        return JSONResponse(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            content={"message": "Failed to send OTP email."}
+        )
     
     return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "OTP sent."})
 
