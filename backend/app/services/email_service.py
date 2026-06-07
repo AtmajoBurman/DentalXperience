@@ -65,7 +65,7 @@ class GmailSMTPService(EmailService):
             
         except smtplib.SMTPAuthenticationError as e:
             if e.smtp_code == 534:
-                print("Encountered 534 SMTPAuthenticationError. Attempting fallback password...")
+                logger.error("Encountered 534 SMTPAuthenticationError. Attempting fallback password...")
                 app_password_2 = os.getenv("GOOGLE_APP_PASSWORD_2")
                 if app_password_2:
                     try:
@@ -73,17 +73,17 @@ class GmailSMTPService(EmailService):
                         server.login(sender_email, app_password_2)
                         server.send_message(msg)
                         server.quit()
-                        print("Email sent successfully with GOOGLE_APP_PASSWORD_2!")
+                        logger.info("Email sent successfully with GOOGLE_APP_PASSWORD_2!")
                         return True
                     except Exception as fallback_e:
-                        print("Fallback sending failed:", fallback_e)
+                        logger.error("Fallback sending failed:", fallback_e)
                 
-                print("Fallback also failed. Notifying admin via Resend.")
+                logger.error("Fallback also failed. Notifying admin via Resend.")
                 self._notify_admin_via_resend("Failed during send().")
-            print("Error:", e)
+            logger.error("Error:", e)
             return False
         except Exception as e:
-            print("Error:", e)
+            logger.error("Error:", e)
             return False
 
     def send_bulk_bcc(self, bcc_recipients: list[str], subject: str, text: str, html: str = None) -> bool:
@@ -113,12 +113,12 @@ class GmailSMTPService(EmailService):
             server.send_message(msg)
             server.quit()
             
-            print(f"Bulk Bcc Email sent successfully to {len(bcc_recipients)} recipients!")
+            logger.info(f"Bulk Bcc Email sent successfully to {len(bcc_recipients)} recipients!")
             return True
             
         except smtplib.SMTPAuthenticationError as e:
             if e.smtp_code == 534:
-                print("Encountered 534 SMTPAuthenticationError. Attempting fallback password...")
+                logger.error("Encountered 534 SMTPAuthenticationError. Attempting fallback password...")
                 app_password_2 = os.getenv("GOOGLE_APP_PASSWORD_2")
                 if app_password_2:
                     try:
@@ -126,12 +126,12 @@ class GmailSMTPService(EmailService):
                         server.login(sender_email, app_password_2)
                         server.send_message(msg)
                         server.quit()
-                        print(f"Bulk Bcc Email sent successfully to {len(bcc_recipients)} recipients with GOOGLE_APP_PASSWORD_2!")
+                        logger.info(f"Bulk Bcc Email sent successfully to {len(bcc_recipients)} recipients with GOOGLE_APP_PASSWORD_2!")
                         return True
                     except Exception as fallback_e:
-                        print("Fallback sending failed:", fallback_e)
+                        logger.error("Fallback sending failed:", fallback_e)
                 
-                print("Fallback also failed. Notifying admin via Resend.")
+                logger.error("Fallback also failed. Notifying admin via Resend.")
                 self._notify_admin_via_resend("Failed during send_bulk_bcc().")
             print("Error in bulk sending:", e)
             return False
