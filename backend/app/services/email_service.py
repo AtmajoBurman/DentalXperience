@@ -55,7 +55,9 @@ class GmailSMTPService(EmailService):
             msg.attach(MIMEText(html, "html"))
 
         try:
-            server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server.ehlo()
+            server.starttls()
             server.login(sender_email, app_password)
             server.send_message(msg)
             server.quit()
@@ -69,7 +71,9 @@ class GmailSMTPService(EmailService):
                 app_password_2 = os.getenv("GOOGLE_APP_PASSWORD_2")
                 if app_password_2:
                     try:
-                        server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+                        server = smtplib.SMTP("smtp.gmail.com", 587)
+                        server.ehlo()
+                        server.starttls()
                         server.login(sender_email, app_password_2)
                         server.send_message(msg)
                         server.quit()
@@ -80,7 +84,7 @@ class GmailSMTPService(EmailService):
                 
                 logger.error("Fallback also failed. Notifying admin via Resend.")
                 self._notify_admin_via_resend("Failed during send().")
-            logger.error("Error:", e)
+            print("Error:", e)
             return False
         except Exception as e:
             logger.error("Error:", e)
@@ -108,7 +112,9 @@ class GmailSMTPService(EmailService):
             msg.attach(MIMEText(html, "html"))
 
         try:
-            server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+            server = smtplib.SMTP("smtp.gmail.com", 587)
+            server.ehlo()
+            server.starttls()
             server.login(sender_email, app_password)
             server.send_message(msg)
             server.quit()
@@ -122,7 +128,9 @@ class GmailSMTPService(EmailService):
                 app_password_2 = os.getenv("GOOGLE_APP_PASSWORD_2")
                 if app_password_2:
                     try:
-                        server = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+                        server = smtplib.SMTP("smtp.gmail.com", 587)
+                        server.ehlo()
+                        server.starttls()
                         server.login(sender_email, app_password_2)
                         server.send_message(msg)
                         server.quit()
