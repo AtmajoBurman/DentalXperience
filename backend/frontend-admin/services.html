@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/png" href="assets/Media/logo.png">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services Admin - Dental Clinic</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <style>
+        .service-item {
+            background: var(--bg-color);
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: grab;
+        }
+        .service-item:active {
+            cursor: grabbing;
+        }
+        .service-item .service-content {
+            flex-grow: 1;
+            margin-left: 1rem;
+        }
+        .service-item h4 {
+            margin-bottom: 0.5rem;
+            color: var(--text-color);
+        }
+        .service-item p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .drag-handle {
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: grab;
+            display: flex;
+            align-items: center;
+        }
+        .actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="dashboard">
+        
+        <!-- Sidebar Navigation -->
+        <nav class="sidebar">
+            <div class="sidebar-brand">
+                <ion-icon name="shield-checkmark"></ion-icon> Admin Panel
+            </div>
+            <ul class="nav-links">
+                <li><a href="introduction.html"><ion-icon name="home-outline"></ion-icon> Introduction</a></li>
+                <li><a href="experience.html"><ion-icon name="medical-outline"></ion-icon> Doctor's Experience</a></li>
+                <li><a href="staff.html"><ion-icon name="people-outline"></ion-icon> Staff</a></li>
+                <li><a href="contact.html"><ion-icon name="call-outline"></ion-icon> Contact Us</a></li>
+                <li><a href="announcements.html"><ion-icon name="megaphone-outline"></ion-icon> Announcements</a></li>
+                <li><a href="rules.html"><ion-icon name="list-outline"></ion-icon> Rules & Regulations</a></li>
+                <li><a href="services.html" class="active"><ion-icon name="medkit-outline"></ion-icon> Services</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content Area -->
+        <main class="main-wrapper">
+            
+            <!-- Top Header -->
+            <header class="top-header">
+                <div class="page-title">Services Settings</div>
+                <div class="user-actions">
+                    <button class="btn-danger" id="logoutBtn">
+                        <ion-icon name="log-out-outline"></ion-icon> Logout
+                    </button>
+                </div>
+            </header>
+
+            <!-- Page Content -->
+            <div class="content-area">
+                
+                <div class="admin-card">
+                    <h3><ion-icon name="add-circle-outline"></ion-icon> Add New Service</h3>
+                    <form id="serviceForm">
+                        <div class="form-group">
+                            <label for="serviceName">Service Name</label>
+                            <input type="text" id="serviceName" required maxlength="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="serviceProvided">Service Description</label>
+                            <textarea id="serviceProvided" rows="3" required maxlength="400"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-primary" style="max-width: 200px; margin-top: 1rem;">
+                            <ion-icon name="add-outline"></ion-icon> Add Service
+                        </button>
+                    </form>
+                </div>
+
+                <div class="admin-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3><ion-icon name="list-outline"></ion-icon> Manage Services</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem;">Drag and drop items to reorder</p>
+                    </div>
+                    
+                    <div id="servicesList">
+                        <!-- Injected via JS -->
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <!-- Edit Modal -->
+    <div class="modal-overlay" id="editModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Edit Service</h3>
+                <button class="close-modal" id="closeEditModal"><ion-icon name="close"></ion-icon></button>
+            </div>
+            <form id="editForm">
+                <input type="hidden" id="editServiceId">
+                <div class="form-group">
+                    <label>Service Name</label>
+                    <input type="text" id="editServiceName" required maxlength="100">
+                </div>
+                <div class="form-group">
+                    <label>Service Description</label>
+                    <textarea id="editServiceProvided" rows="3" required maxlength="400"></textarea>
+                </div>
+                <button type="submit" class="btn-primary">
+                    <ion-icon name="save-outline"></ion-icon> Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/admin-auth.js"></script>
+    <script src="js/services.js"></script>
+</body>
+</html>

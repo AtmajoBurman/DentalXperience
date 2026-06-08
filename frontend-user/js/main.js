@@ -138,7 +138,36 @@ document.addEventListener('DOMContentLoaded', () => {
     initGallery();
     initSchedule();
     checkUpcomingAnnouncements();
+    
+    // Intro page toast
+    const path = window.location.pathname;
+    if (path.endsWith('index.html') || path === '/' || path === '') {
+        setTimeout(() => {
+            showUserToast("We kindly invite you to visit the Announcements page to stay updated with our latest news.", "success");
+        }, 1500);
+    }
 });
+
+// Toast Notification System
+function showUserToast(message, type = 'success') {
+    let toast = document.getElementById('user-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'user-toast';
+        document.body.appendChild(toast);
+    }
+    toast.className = `user-toast ${type}`;
+    const icon = type === 'success' ? 'checkmark-circle-outline' : 'information-circle-outline';
+    toast.innerHTML = `<ion-icon name="${icon}" style="font-size: 1.5rem;"></ion-icon> ${message}`;
+    
+    // Force reflow
+    void toast.offsetWidth;
+    
+    toast.classList.add('show');
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 6000);
+}
 
 // Check for upcoming announcements
 async function checkUpcomingAnnouncements() {
@@ -548,12 +577,15 @@ document.addEventListener('DOMContentLoaded', () => {
             display: flex;
         }
         .chat-modal {
-            background: var(--primary-color);
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
             width: 90%;
             max-width: 400px;
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+            box-shadow: var(--shadow-premium);
             position: relative;
             display: flex;
             flex-direction: column;
@@ -592,8 +624,9 @@ document.addEventListener('DOMContentLoaded', () => {
             border-bottom-right-radius: 0;
         }
         .chat-msg.bot {
-            background: white;
+            background: var(--glass-bg);
             color: var(--text-main);
+            border: 1px solid var(--glass-border);
             align-self: flex-start;
             border-bottom-left-radius: 0;
             box-shadow: var(--shadow-soft);
@@ -605,6 +638,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .chat-input-area input {
             flex: 1;
             padding: 12px;
+            background: rgba(15, 23, 42, 0.4);
+            color: var(--text-main);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             outline: none;

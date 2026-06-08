@@ -203,3 +203,22 @@ class RuleCategoryUpdate(SQLModel):
 class RuleCategoryWithRules(RuleCategoryBase):
     id: int
     rules: List[RuleItem] = []
+
+# --- Services ---
+
+class ServiceBase(SQLModel):
+    service_name: str = Field(max_length=100)
+    service_provided: str = Field(max_length=400)
+    order_index: int = Field(default=0)
+
+class Service(ServiceBase, table=True):
+    __tablename__ = "services"
+    id: Optional[int] = Field(default=None, primary_key=True)
+
+class ServiceCreate(ServiceBase):
+    pass
+
+class ServiceUpdate(SQLModel):
+    service_name: Optional[str] = Field(default=None, max_length=100)
+    service_provided: Optional[str] = Field(default=None, max_length=400)
+    order_index: Optional[int] = None

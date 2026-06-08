@@ -11,11 +11,11 @@ from sqlmodel import select, text
 
 from app.core.db import engine, init_db
 from app.models.static_tables import Schedule, Profile, Staff, Admin
-from app.models.dynamic_tables import Announcement, OTPRecord
+from app.models.dynamic_tables import Announcement, OTPRecord, Service
 from app.core.auth import get_password_hash
 from app.core.config import settings
 
-from app.routers import pictures, experience, announcements, customers, schedule, profile, staff, auth, email, register, contacts, rules, chatbot
+from app.routers import pictures, experience, announcements, customers, schedule, profile, staff, auth, email, register, contacts, rules, chatbot, services
 
 async def cleanup_announcements():
     async with AsyncSession(engine) as session:
@@ -98,7 +98,7 @@ async def lifespan(app: FastAPI):
     # Shutdown APScheduler
     scheduler.shutdown()
 
-app = FastAPI(title="Dental Clinic Portfolio Backend", lifespan=lifespan)
+app = FastAPI(title="Dental Clinic Portfolio Backend", version="2.0", lifespan=lifespan)
 
 @app.get("/", include_in_schema=False)
 async def root():
@@ -128,3 +128,4 @@ app.include_router(register.router)
 app.include_router(contacts.router)
 app.include_router(rules.router)
 app.include_router(chatbot.router)
+app.include_router(services.router)
