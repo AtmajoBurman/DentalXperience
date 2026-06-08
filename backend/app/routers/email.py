@@ -23,7 +23,7 @@ async def send_email(request: EmailRequest, background_tasks: BackgroundTasks, a
         background_tasks.add_task(
             email_service.send,
             recipient=request.email,
-            subject="New Message from Dental Clinic",
+            subject="New Message from Burman Dental Clinic",
             text=request.message
         )
         return JSONResponse(

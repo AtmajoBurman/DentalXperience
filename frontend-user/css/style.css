@@ -225,6 +225,7 @@ main {
     font-weight: 700;
     background: linear-gradient(to right, #d4af37, #997a00);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -1px;
     line-height: 1.2;
@@ -1245,4 +1246,138 @@ main {
     font-size: 0.85rem;
     color: var(--text-muted);
     margin-top: 0.5rem;
+}
+
+/* Responsive Adjustments for Mobile Typography and Layout */
+@media (max-width: 768px) {
+    /* Hero section adjustments */
+    .hero {
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+
+    #chamber-name {
+        font-size: 2.2rem;
+        line-height: 1.3;
+    }
+    
+    .map-circle {
+        width: 100px;
+        height: 100px;
+    }
+    
+    /* Bring all font sizes into control */
+    .section-title, .gallery-section h2, .schedule-section h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .message-container .bengali-text {
+        font-size: 1.5rem;
+    }
+    
+    .message-container .english-text {
+        font-size: 1rem;
+    }
+
+    .staff-name, .exp-heading, .ann-heading {
+        font-size: 1.3rem;
+    }
+
+    .staff-desc, .exp-description, .ann-description {
+        font-size: 0.95rem;
+    }
+}
+
+/* Stunning Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #0B0E14; /* Deep obsidian */
+        --secondary-color: #151A22; /* Slightly lighter obsidian */
+        --accent-color: #E6C27A; /* Softer, glowing gold */
+        --accent-glow: rgba(230, 194, 122, 0.2);
+        --text-main: #F0F2F5; /* Crisp off-white */
+        --text-muted: #9BA3AF; /* Cool grey */
+        --glass-bg: rgba(21, 26, 34, 0.65);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.4);
+        --shadow-soft: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+    }
+
+    body {
+        background: linear-gradient(
+            120deg,
+            #0B0E14 0%,
+            #11161F 25%,
+            #161D29 50%,
+            #0B0E14 100%
+        );
+        background-size: 300% 300%;
+        animation: divineGlow 20s ease infinite;
+    }
+
+    /* Specific overrides for hardcoded colors in light mode */
+    .navbar {
+        background: rgba(11, 14, 20, 0.85);
+    }
+    
+    .schedule-table tr:hover td {
+        background: rgba(255, 255, 255, 0.03);
+    }
+    
+    .toast-popup {
+        background: rgba(21, 26, 34, 0.95);
+    }
+    
+    .staff-contact-btn {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .staff-contact-btn:hover {
+        background: var(--accent-color);
+        color: #0B0E14; /* Dark text on gold button for contrast */
+    }
+
+    #chamber-name {
+        background: linear-gradient(to right, #E6C27A, #C29A4D);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0px 10px 30px rgba(230, 194, 122, 0.15);
+    }
+
+    .badge-current {
+        background: rgba(230, 194, 122, 0.1);
+        color: #E6C27A;
+        border: 1px solid rgba(230, 194, 122, 0.3);
+    }
+
+    .badge-alumni {
+        background: rgba(155, 163, 175, 0.1);
+        color: var(--text-muted);
+        border: 1px solid rgba(155, 163, 175, 0.2);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #E6C27A 0%, #F5DEB3 100%);
+        color: #332400;
+    }
+
+    .staff-avatar {
+        background: linear-gradient(135deg, var(--accent-color), #2A2F3A);
+    }
+    .staff-avatar img {
+        border-color: var(--secondary-color);
+    }
+    
+    .ann-date-container {
+        background: linear-gradient(135deg, var(--accent-color), #C29A4D);
+        color: #0B0E14;
+    }
+    
+    .exp-category-badge {
+        background: linear-gradient(135deg, var(--accent-color), #F5DEB3);
+        color: #332400;
+    }
 }

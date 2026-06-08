@@ -188,6 +188,6 @@ async def submit_feedback(request: FeedbackRequest, background_tasks: Background
     # Send feedback to admin
     admin_subject = "User Unregistered: Feedback"
     admin_text = f"User {request.email} has unregistered.\n\nFeedback:\n{request.feedback}"
-    background_tasks.add_task(email_service.send, "burmandentalclinic@gmail.com", admin_subject, admin_text)
+    background_tasks.add_task(email_service.send, settings.SMTP_USERNAME, admin_subject, admin_text)
     
     return JSONResponse(status_code=status.HTTP_200_OK, content={"message": "Feedback submitted."})

@@ -6,7 +6,6 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str
     RESEND_API_KEY: str | None = None
     SMTP_USERNAME: str = "burmandentalclinic@gmail.com"
-    GOOGLE_APP_PASSWORD: str | None = None
     
     model_config = SettingsConfigDict(env_file="../.env", extra="ignore")
 

@@ -30,9 +30,9 @@ async def create_announcement(
     
     if customer_emails:
         email_service = get_email_service()
-        subject = f"New Announcement: {db_announcement.heading}"
+        subject = f"New announcement from Burman Dental Clinic"
         formatted_date = db_announcement.date_and_time.strftime("%d %b %Y, %I:%M %p")
-        text = f"{db_announcement.description}\n\nDate: {formatted_date}"
+        text = f"<p style=\"font-weight: bold;\">{db_announcement.heading}</p><br><br><p>{db_announcement.description}</p><br><br><p>Date: {formatted_date}</p>"
         background_tasks.add_task(email_service.send_bulk_bcc, list(customer_emails), subject, text)
         
     return db_announcement
