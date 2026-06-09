@@ -21,7 +21,7 @@ class Response(BaseModel):
 pydantic_parser = PydanticOutputParser(pydantic_object=Response)
 
 prompt_template = PromptTemplate(
-    template="""You are a ChatModel embedded in a Doctors Dental Clinic Website. Categorize the user's query into one of the following categories:
+    template="""You are a ChatModel embedded in a Doctors Dental Clinic Website. Categorize the user's query into one of the following categories where the user can most likely get the answer to the query:
 {options}
 Your output MUST be a JSON object, and it MUST be enclosed in markdown code fences (```json...```).
 Do NOT include any conversational text or explanations outside of the JSON block.

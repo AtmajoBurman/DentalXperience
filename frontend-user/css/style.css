@@ -1404,7 +1404,7 @@ main {
     gap: 1.5rem;
 }
 
-.accordion-item {
+.services-section .accordion-item {
     background: var(--glass-bg);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -1415,12 +1415,12 @@ main {
     transition: var(--transition);
 }
 
-.accordion-item:hover {
+.services-section .accordion-item:hover {
     box-shadow: var(--shadow-premium);
     transform: translateY(-3px);
 }
 
-.accordion-header {
+.services-section .accordion-header {
     padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -1430,7 +1430,7 @@ main {
     transition: var(--transition);
 }
 
-.accordion-header h3 {
+.services-section .accordion-header h3 {
     font-size: 1.4rem;
     color: var(--text-main);
     font-weight: 600;
@@ -1438,37 +1438,64 @@ main {
     transition: var(--transition);
 }
 
-.accordion-icon {
+.services-section .accordion-icon {
     font-size: 1.5rem;
     color: var(--accent-color);
     transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.accordion-item.active .accordion-header h3 {
+.services-section .accordion-item.active .accordion-header h3 {
     color: var(--accent-color);
 }
 
-.accordion-item.active .accordion-icon {
+.services-section .accordion-item.active .accordion-icon {
     transform: rotate(180deg);
 }
 
-.accordion-body {
+.services-section .accordion-item.active {
+    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.services-section .accordion-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.accordion-content {
-    padding: 0 2rem 2rem 2rem;
+.services-section .accordion-inner {
+    padding: 1.5rem 2rem 2rem 2.5rem;
     color: var(--text-muted);
-    font-size: 1.1rem;
-    line-height: 1.7;
-    border-top: 1px solid transparent;
+    font-size: 1.15rem;
+    line-height: 1.8;
+    border-top: 1px solid rgba(212, 175, 55, 0.2);
+    text-align: left;
+    position: relative;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.accordion-item.active .accordion-content {
-    border-top: 1px solid rgba(212, 175, 55, 0.2);
-    padding-top: 1.5rem;
+.services-section .accordion-inner::before {
+    content: '';
+    position: absolute;
+    left: 1.5rem;
+    top: 2rem;
+    bottom: 2rem;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--accent-color), transparent);
+    border-radius: 3px;
+    opacity: 0;
+    transition: opacity 0.4s ease 0.2s;
+}
+
+.services-section .accordion-item.active .accordion-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.services-section .accordion-item.active .accordion-inner::before {
+    opacity: 1;
 }
 
 /* User Toast Notification */

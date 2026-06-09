@@ -32,10 +32,15 @@ function getDriveThumbnail(url) {
 // Initialize Profile (Hero section)
 async function initProfile() {
     const profile = await fetchData('/profile/');
-    if (profile && profile.name_of_chamber) {
-        const nameEl = document.getElementById('chamber-name');
-        if (nameEl) {
-            nameEl.textContent = profile.name_of_chamber || "Welcome to Our Chamber";
+    if (profile) {
+        const path = window.location.pathname;
+        const isIndex = path.endsWith('index.html') || path === '/' || path === '';
+        
+        if (isIndex && profile.name_of_chamber) {
+            const nameEl = document.getElementById('chamber-name');
+            if (nameEl) {
+                nameEl.textContent = profile.name_of_chamber;
+            }
         }
         
         const mapLink = document.getElementById('map-link');

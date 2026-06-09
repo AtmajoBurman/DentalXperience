@@ -11,17 +11,27 @@ OPTIONS = [
     "Staff Information",
     "Rules & Regulations",
     "Urgency",
-    "Location"
+    "Location",
+    "Services Provided in Clinic"
 ]
-
 LLM_RESPONSES = {
-    "Irrelevant": "Oops! It seems to be a query I’m not prepared to answer. Please ask something related to the clinic.",
+    "Irrelevant": "Oops! It looks like that's something I'm not trained to answer. Please ask me something related to the clinic, and I'll be happy to help.",
+
     "Doctors Experience": "I can guide you to where you’ll find the answer. Please click the button with three lines at the top left and select 'Doctor’s Experience'.",
-    "Chamber timings": "You can find the chamber timings by clicking the button with three lines at the top left and selecting 'About' and scrolling down, also please consider checking the 'Announcements' section, in case there is change in timings due to some reason.",
-    "Basic instructions after tooth extraction": "Please click the button with three lines at the top left and select 'Rules and Regulations' to view the post‑treatment guidelines.",
-    "Book appointment": "To book an appointment, click the button with three lines at the top left and choose 'Contact Us'.",
-    "Staff Information": "You can view staff details by clicking the button with three lines at the top left and selecting 'Staff'.",
-    "Rules & Regulations": "Clinic rules and regulations are available under 'Rules and Regulations' in the menu accessed by the three‑line button at the top left.",
+
+    "Chamber timings": "To check the chamber timings, please open the three-line menu at the top left and select 'About'. Scroll down to find the timings. Also, don't forget to check the 'Announcements' section for any temporary changes or updates.",
+
+    "Basic instructions after tooth extraction": "I'd be glad to help. For post-extraction care instructions, please open the three-line menu at the top left and select 'Rules and Regulations'. You'll find all the important guidelines there.",
+
+    "Book appointment": "I'd be glad to help. To book an appointment, please click the three-line menu at the top left and select 'Contact Us'.",
+
+    "Staff Information": "To view information about our staff, please open the three-line menu at the top left and select 'Staff'.",
+
+    "Rules & Regulations": "You can find the clinic's rules and regulations by opening the three-line menu at the top left and selecting 'Rules and Regulations'.",
+
     "Urgency": f"If your situation is urgent, please contact the number {DOCTOR_NUMBER}",
-    "Location": "To view the clinic’s location, click the button with three lines at the top left and select 'About' and click the Google Maps button on top right."
+
+    "Location": "Need directions? Simply open the three-line menu at the top left, select 'About', and then click the Google Maps button located at the top right.",
+
+    "Services Provided in Clinic": "I'd be happy to help. To see the services available at our clinic, please open the three-line menu at the top left and select 'Services Provided'."
 }

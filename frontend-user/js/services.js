@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
                 <div class="accordion-body">
                     <div class="accordion-content">
-                        ${service.service_provided}
+                        <div class="accordion-inner">
+                            ${service.service_provided}
+                        </div>
                     </div>
                 </div>
             `;
@@ -37,16 +39,20 @@ document.addEventListener('DOMContentLoaded', async () => {
             header.addEventListener('click', () => {
                 const isActive = accordionItem.classList.contains('active');
                 
-                // Close all other items (optional: to make it behave like a traditional accordion)
+                // Close all other items
                 document.querySelectorAll('.accordion-item').forEach(item => {
                     item.classList.remove('active');
-                    item.querySelector('.accordion-body').style.maxHeight = null;
+                    const contentWrap = item.querySelector('.accordion-content');
+                    if (contentWrap) contentWrap.style.maxHeight = null;
                 });
 
                 // If it wasn't active, open it
                 if (!isActive) {
                     accordionItem.classList.add('active');
-                    body.style.maxHeight = body.scrollHeight + "px";
+                    const contentWrap = accordionItem.querySelector('.accordion-content');
+                    if (contentWrap) {
+                        contentWrap.style.maxHeight = contentWrap.scrollHeight + "px";
+                    }
                 }
             });
 
