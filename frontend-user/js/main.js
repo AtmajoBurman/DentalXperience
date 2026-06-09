@@ -116,10 +116,25 @@ async function initSchedule() {
             tdDay.textContent = dayMap[sched.id] || `Day ${sched.id}`;
             
             const tdOpen = document.createElement('td');
-            tdOpen.textContent = sched.from_time;
-            
             const tdClose = document.createElement('td');
-            tdClose.textContent = sched.to_time;
+
+            // Format to xy:xy (HH:MM)
+            const openTime = sched.from_time ? sched.from_time.slice(0, 5) : '';
+            const closeTime = sched.to_time ? sched.to_time.slice(0, 5) : '';
+
+            if (openTime && closeTime && openTime === closeTime) {
+                // Closed case
+                tdOpen.textContent = "Closed";
+                tdClose.textContent = "Closed";
+                tdOpen.className = "timing-closed";
+                tdClose.className = "timing-closed";
+            } else {
+                // Standard timings
+                tdOpen.textContent = openTime;
+                tdClose.textContent = closeTime;
+                tdOpen.className = "timing-standard";
+                tdClose.className = "timing-standard";
+            }
             
             tr.appendChild(tdDay);
             tr.appendChild(tdOpen);

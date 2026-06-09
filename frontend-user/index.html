@@ -6,8 +6,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dental Clinic - Introduction</title>
-    <link rel="stylesheet" href="css/style.css">
+    <title>Dental Clinic - Home</title>
+    <link rel="stylesheet" href="css/style.css?v=3">
     <!-- Ionicons for beautiful icons -->
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
@@ -84,18 +84,20 @@
         <section class="schedule-section">
             <h2>Chamber Timings*</h2>
             <div class="glass-card">
-                <table class="schedule-table">
-                    <thead>
-                        <tr>
-                            <th>Day</th>
-                            <th>Opening Time</th>
-                            <th>Closing Time</th>
-                        </tr>
-                    </thead>
-                    <tbody id="schedule-body">
-                        <!-- Rows injected via JS -->
-                    </tbody>
-                </table>
+                <div class="table-responsive" style="overflow-x: auto; width: 100%;">
+                    <table class="schedule-table">
+                        <thead>
+                            <tr>
+                                <th>Day</th>
+                                <th>Opening Time</th>
+                                <th>Closing Time</th>
+                            </tr>
+                        </thead>
+                        <tbody id="schedule-body">
+                            <!-- Rows injected via JS -->
+                        </tbody>
+                    </table>
+                </div>
                 <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted); text-decoration: underline; margin-top: 15px;">
                     *Standard timings. Kindly check Announcements for any date-specific changes.
                 </p>
@@ -114,7 +116,7 @@
     </div>
 
     <script src="js/env.js"></script>
-    <script src="js/main.js"></script>
+    <script src="js/main.js?v=3"></script>
 </body>
 
 </html>

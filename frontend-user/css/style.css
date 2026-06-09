@@ -78,6 +78,7 @@ body {
     display: flex;
     flex-direction: column;
     box-shadow: 10px 0 30px rgba(0,0,0,0.03);
+    overflow-y: auto;
 }
 
 .navbar.open {
@@ -401,6 +402,19 @@ main {
 }
 .schedule-table tr:last-child td {
     border-bottom: none;
+}
+
+.timing-standard {
+    font-weight: bold;
+    color: #4CAF50;
+    text-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
+
+.timing-closed {
+    font-style: italic;
+    font-weight: normal;
+    color: #f44336;
+    text-shadow: 0 0 5px rgba(244, 67, 54, 0.5);
 }
 
 /* Staff Page Styling */
