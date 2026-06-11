@@ -48,6 +48,47 @@ Blending an intuitive frontend with a cutting-edge Python architecture, this pla
 
 ## 🏗️ System Architecture
 
+```mermaid
+flowchart TB
+    %% Definitions
+    classDef client fill:#f9f9f9,stroke:#333,stroke-width:2px,color:#333,rx:10,ry:10;
+    classDef backend fill:#e3f2fd,stroke:#1565c0,stroke-width:2px,color:#0d47a1,rx:10,ry:10;
+    classDef database fill:#e8f5e9,stroke:#2e7d32,stroke-width:2px,color:#1b5e20,rx:10,ry:10;
+    classDef external fill:#fff3e0,stroke:#ef6c00,stroke-width:2px,color:#e65100,rx:10,ry:10;
+    classDef worker fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px,color:#4a148c,rx:10,ry:10;
+
+    subgraph Clients["📱 Client Layer"]
+        User["👨‍⚕️ User Frontend<br/>(HTML/CSS/JS)"]:::client
+        Admin["🛡️ Admin Dashboard<br/>(JWT Secured)"]:::client
+    end
+
+    subgraph Server["⚙️ Backend Layer (FastAPI)"]
+        API["🚀 REST API Core"]:::backend
+        Auth["🔑 Authentication<br/>(JWT / Passwords)"]:::backend
+        Scheduler["⏱️ APScheduler<br/>(Background Jobs)"]:::worker
+        
+        API --- Auth
+        API --- Scheduler
+    end
+
+    subgraph Data["🗄️ Data Layer"]
+        DB[("🐘 PostgreSQL DB<br/>(SQLModel + Async)")]:::database
+    end
+
+    subgraph ThirdParty["🌐 External Services"]
+        Email["📧 Resend API<br/>(Emails & OTPs)"]:::external
+        AI["🤖 AI Chatbot<br/>(LangChain + HuggingFace)"]:::external
+    end
+
+    %% Connections
+    User -->|"HTTP/REST"| API
+    Admin -->|"HTTP/REST + JWT"| API
+    API -->|"Async Read/Write"| DB
+    Scheduler -.->|"Purge Expired Data"| DB
+    API -->|"Send Notification"| Email
+    API -->|"Query LLM"| AI
+```
+
 The architecture follows a decoupled **Client-Server model**, divided into the following layers:
 
 1. **User Frontend (`/frontend-user`)**: A purely static, highly responsive vanilla HTML/CSS/JS interface designed to run on the client-side, dynamically fetching data via RESTful API endpoints.
