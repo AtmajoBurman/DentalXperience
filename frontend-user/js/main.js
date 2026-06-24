@@ -35,14 +35,14 @@ async function initProfile() {
     if (profile) {
         const path = window.location.pathname;
         const isIndex = path.endsWith('index.html') || path === '/' || path === '';
-        
+
         if (isIndex && profile.name_of_chamber) {
             const nameEl = document.getElementById('chamber-name');
             if (nameEl) {
                 nameEl.textContent = profile.name_of_chamber;
             }
         }
-        
+
         const mapLink = document.getElementById('map-link');
         if (profile.google_maps_location_link && mapLink) {
             mapLink.href = profile.google_maps_location_link;
@@ -54,7 +54,7 @@ async function initProfile() {
 async function initGallery() {
     const pictures = await fetchData('/pictures/');
     const slideshow = document.getElementById('slideshow');
-    
+
     if (!slideshow) return;
 
     if (pictures && pictures.length > 0) {
@@ -71,7 +71,7 @@ async function initGallery() {
 
         // Slideshow logic
         const slides = document.querySelectorAll('.slide');
-        if(slides.length > 1) {
+        if (slides.length > 1) {
             let currentIndex = 0;
             setInterval(() => {
                 slides[currentIndex].classList.remove('active');
@@ -102,19 +102,19 @@ const dayMap = {
 async function initSchedule() {
     const schedules = await fetchData('/schedule/');
     const tbody = document.getElementById('schedule-body');
-    
+
     if (!tbody) return;
 
     if (schedules && schedules.length > 0) {
         // Sort by day ID
         schedules.sort((a, b) => a.id - b.id);
-        
+
         schedules.forEach(sched => {
             const tr = document.createElement('tr');
-            
+
             const tdDay = document.createElement('td');
             tdDay.textContent = dayMap[sched.id] || `Day ${sched.id}`;
-            
+
             const tdOpen = document.createElement('td');
             const tdClose = document.createElement('td');
 
@@ -135,7 +135,7 @@ async function initSchedule() {
                 tdOpen.className = "timing-standard";
                 tdClose.className = "timing-standard";
             }
-            
+
             tr.appendChild(tdDay);
             tr.appendChild(tdOpen);
             tr.appendChild(tdClose);
@@ -158,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initGallery();
     initSchedule();
     checkUpcomingAnnouncements();
-    
+
     // Intro page toast
     const path = window.location.pathname;
     if (path.endsWith('index.html') || path === '/' || path === '') {
@@ -179,10 +179,10 @@ function showUserToast(message, type = 'success') {
     toast.className = `user-toast ${type}`;
     const icon = type === 'success' ? 'checkmark-circle-outline' : 'information-circle-outline';
     toast.innerHTML = `<ion-icon name="${icon}" style="font-size: 1.5rem;"></ion-icon> ${message}`;
-    
+
     // Force reflow
     void toast.offsetWidth;
-    
+
     toast.classList.add('show');
     setTimeout(() => {
         toast.classList.remove('show');
@@ -193,7 +193,7 @@ function showUserToast(message, type = 'success') {
 async function checkUpcomingAnnouncements() {
     const popup = document.getElementById('upcoming-popup');
     const dismissBtn = document.getElementById('dismissPopupBtn');
-    
+
     // Only run this logic on a page that has the popup (index.html)
     if (!popup || !dismissBtn) return;
 
@@ -232,7 +232,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 <div id="regStep1">
                     <h2>Register with Us</h2>
-                    <p>Enter your email to receive an OTP</p>
+                    <p>✨Please enter your email to receive an OTP — this ensures we can share our latest announcements with you directly and without delay</p>
                     <form id="regEmailForm">
                         <input type="email" id="regEmailInput" placeholder="your@email.com" required>
                         <button type="submit" class="btn-primary" id="regEmailSubmitBtn">Send OTP</button>
@@ -302,14 +302,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const emailForm = document.getElementById('regEmailForm');
     const otpForm = document.getElementById('regOtpForm');
     const successBox = document.getElementById('regSuccessBox');
-    
+
     // Unregister elements
     const showUnregBtn = document.getElementById('showUnregBtn');
     const unregEmailForm = document.getElementById('unregEmailForm');
     const unregOtpForm = document.getElementById('unregOtpForm');
     const feedbackForm = document.getElementById('feedbackForm');
     const unregErrorBox = document.getElementById('unregErrorBox');
-    
+
     let currentEmail = '';
     let countdownInterval;
 
@@ -341,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.classList.remove('active');
         resetModal();
     });
-    
+
     showUnregBtn.addEventListener('click', () => {
         resetModal();
         document.getElementById('unregStep1').style.display = 'block';
@@ -363,7 +363,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ email })
             });
             const data = await res.json();
-            
+
             if (res.ok) {
                 currentEmail = email;
                 document.getElementById('regEmailDisplay').innerText = email;
@@ -423,14 +423,14 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('regResendLink').style.display = 'none';
         document.getElementById('regTimer').style.display = 'block';
         startCountdown(5 * 60);
-        
+
         try {
             await fetch(`${API_BASE}/register/request-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: currentEmail })
             });
-        } catch (err) {}
+        } catch (err) { }
     });
 
     function startCountdown(duration, displayId = 'regCountdown', timerId = 'regTimer', resendId = 'regResendLink') {
@@ -440,7 +440,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const resendLink = document.getElementById(resendId);
         resendLink.style.display = 'none';
         timerDiv.style.display = 'block';
-        
+
         let timer = duration, minutes, seconds;
         countdownInterval = setInterval(function () {
             minutes = parseInt(timer / 60, 10);
@@ -456,9 +456,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 1000);
     }
-    
+
     // --- Unregister Flow ---
-    
+
     unregEmailForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('unregEmailSubmitBtn');
@@ -474,7 +474,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ email })
             });
             const data = await res.json();
-            
+
             if (res.ok) {
                 currentEmail = email;
                 document.getElementById('unregEmailDisplay').innerText = email;
@@ -531,26 +531,26 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('unregResendLink').style.display = 'none';
         document.getElementById('unregTimer').style.display = 'block';
         startCountdown(5 * 60, 'unregCountdown', 'unregTimer', 'unregResendLink');
-        
+
         try {
             await fetch(`${API_BASE}/register/request-unregister-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: currentEmail })
             });
-        } catch (err) {}
+        } catch (err) { }
     });
 
     feedbackForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const btn = document.getElementById('feedbackSubmitBtn');
         const feedback = document.getElementById('feedbackInput').value;
-        
+
         if (!feedback.trim()) {
             alert('Feedback cannot be empty.');
             return;
         }
-        
+
         btn.innerHTML = '<ion-icon name="sync-outline" class="spin"></ion-icon> Sending...';
         btn.disabled = true;
 
@@ -560,7 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: currentEmail, feedback })
             });
-            
+
             if (res.ok) {
                 document.getElementById('unregStep3').style.display = 'none';
                 document.getElementById('feedbackSuccess').style.display = 'block';
@@ -703,7 +703,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const chatInput = document.getElementById('chatInput');
     const chatMessages = document.getElementById('chatMessages');
 
-    if(chatbotBtn) {
+    if (chatbotBtn) {
         chatbotBtn.addEventListener('click', () => {
             chatOverlay.classList.add('active');
         });
@@ -723,11 +723,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const sendMessage = async () => {
         const query = chatInput.value.trim();
-        if(!query) return;
+        if (!query) return;
 
         addMessage(query, 'user');
         chatInput.value = '';
-        
+
         chatSendBtn.disabled = true;
         chatSendBtn.innerText = '...';
 
@@ -738,12 +738,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: JSON.stringify({ query })
             });
             const data = await res.json();
-            if(res.ok) {
+            if (res.ok) {
                 addMessage(data.response, 'bot');
             } else {
                 addMessage("Sorry, something went wrong. Please try again later.", 'bot');
             }
-        } catch(e) {
+        } catch (e) {
             addMessage("Network error. Could not reach support.", 'bot');
         } finally {
             chatSendBtn.disabled = false;
@@ -753,7 +753,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     chatSendBtn.addEventListener('click', sendMessage);
     chatInput.addEventListener('keypress', (e) => {
-        if(e.key === 'Enter') sendMessage();
+        if (e.key === 'Enter') sendMessage();
     });
 });
 
