@@ -10,6 +10,8 @@
 
 ---
 
+## 🧑‍🏫 Complete Demonstration Video [Here](https://youtu.be/orv_wsvrPkk?si=fvgwQ1-IiI2qPTHD)
+
 ## 🌟 About The Project
 
 This full-stack Dental Clinic Management Platform bridges the gap between dental professionals and patients. The responsive public site lets patients explore services, check real-time schedules, and view staff profiles. A standout feature is the integrated **AI chatbot**, built with LangChain and HuggingFace, providing instant, intelligent responses to patient inquiries.
