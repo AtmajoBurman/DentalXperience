@@ -89,8 +89,8 @@ async def lifespan(app: FastAPI):
     # Setup APScheduler
     scheduler = AsyncIOScheduler()
     # Run cleanup every minute
-    scheduler.add_job(cleanup_announcements, "interval", minutes=1)
-    scheduler.add_job(cleanup_otps, "interval", minutes=5)
+    scheduler.add_job(cleanup_announcements, "interval", days=3)
+    scheduler.add_job(cleanup_otps, "interval", hours=12)
     scheduler.start()
 
     yield
